@@ -4,8 +4,17 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 <title>Harshpreet Singh Bhasin — HotBot Studios</title>
+<meta name="description" content="Digital business card for Harshpreet Singh Bhasin — Managing Partner & CEO at HotBot Studios LLP">
+<meta name="theme-color" content="#080c14">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Harshpreet">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-NRFFM3F3V3"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-NRFFM3F3V3');</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -14,12 +23,12 @@
 html{scroll-behavior:smooth}
 body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased;-webkit-user-select:none;-moz-user-select:none;user-select:none}
 
-/* ═══ BACKGROUNDS ═══ */
+/* BACKGROUNDS */
 .bg-layer{position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(ellipse 70% 50% at 30% 0%,rgba(30,64,175,0.08),transparent),radial-gradient(ellipse 50% 40% at 80% 100%,rgba(30,64,175,0.05),transparent),var(--bg)}
 .bg-layer::after{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.02'/%3E%3C/svg%3E");opacity:0.6}
 .grid-overlay{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:0.02;background-image:linear-gradient(rgba(255,255,255,0.5) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.5) 1px,transparent 1px);background-size:60px 60px}
 
-/* ═══ SCANNER ═══ */
+/* SCANNER */
 .ar-scanner{position:fixed;inset:0;z-index:999;background:var(--bg);display:flex;align-items:center;justify-content:center;flex-direction:column;animation:scannerOut 2.6s ease-in-out forwards}
 @keyframes scannerOut{0%,65%{opacity:1}100%{opacity:0;pointer-events:none;visibility:hidden}}
 .scanner-ring{width:120px;height:120px;border-radius:50%;border:2px solid var(--accent-light);position:relative;animation:scanPulse 1.2s ease-in-out infinite}
@@ -31,7 +40,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .scanner-label{margin-top:28px;font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--accent-glow);letter-spacing:4px;text-transform:uppercase;animation:blinker 1s ease infinite}
 @keyframes blinker{0%,100%{opacity:1}50%{opacity:0.3}}
 
-/* ═══ CARD LAYOUT ═══ */
+/* CARD LAYOUT */
 .container{position:relative;z-index:1;max-width:440px;margin:0 auto;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:20px 18px 48px}
 .profile-section{display:flex;flex-direction:column;align-items:center;margin-top:10px;animation:revealUp 0.7s ease 2.4s both}
 @keyframes revealUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
@@ -86,7 +95,66 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .foot{margin-top:36px;text-align:center;animation:revealUp 0.7s ease 3.4s both}
 .foot-line{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);opacity:0.5}
 
-/* ═══ SAVE CONTACT MODAL ═══ */
+/* QR CODE & SHARE SECTION */
+.share-tools{width:100%;margin-top:16px;animation:revealUp 0.7s ease 3.1s both}
+.share-tools-row{display:flex;gap:10px}
+.btn-tool{flex:1;padding:13px;border:1px solid var(--border-light);border-radius:10px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;background:var(--surface);color:var(--text);transition:all 0.25s}
+.btn-tool:hover{border-color:rgba(30,64,175,0.25);background:var(--surface-hover);transform:translateY(-1px)}
+.btn-tool svg{width:16px;height:16px;color:var(--accent-glow)}
+.qr-modal-overlay{position:fixed;inset:0;z-index:900;background:rgba(0,0,0,0.7);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;opacity:0;transition:opacity 0.25s ease}
+.qr-modal-overlay.open{display:flex;opacity:1}
+.qr-modal-card{width:320px;max-width:calc(100vw - 40px);background:var(--surface);border:1px solid var(--border-light);border-radius:20px;padding:28px 24px;text-align:center;transform:scale(0.9);transition:transform 0.35s cubic-bezier(0.34,1.56,0.64,1)}
+.qr-modal-overlay.open .qr-modal-card{transform:scale(1)}
+.qr-container{width:200px;height:200px;margin:16px auto;background:#fff;border-radius:12px;padding:12px;display:flex;align-items:center;justify-content:center}
+.qr-container canvas,.qr-container img{border-radius:4px}
+.qr-hint{font-size:11px;color:var(--text-muted);margin-top:12px;line-height:1.5}
+.qr-url{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--accent-glow);margin-top:8px;letter-spacing:0.5px}
+.qr-close{margin-top:16px;padding:11px 32px;border:1px solid var(--border-light);border-radius:10px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;cursor:pointer;background:var(--bg);color:var(--text);transition:all 0.2s}
+.qr-close:hover{border-color:rgba(30,64,175,0.25)}
+
+/* NFC TAP SECTION */
+.nfc-btn{position:relative}
+.nfc-pulse{position:absolute;inset:-2px;border-radius:12px;border:2px solid var(--accent-glow);opacity:0;animation:nfcPulse 2s ease-in-out infinite;pointer-events:none}
+@keyframes nfcPulse{0%,100%{opacity:0;transform:scale(1)}50%{opacity:0.3;transform:scale(1.02)}}
+.nfc-modal-overlay{position:fixed;inset:0;z-index:900;background:rgba(0,0,0,0.7);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;opacity:0;transition:opacity 0.25s ease}
+.nfc-modal-overlay.open{display:flex;opacity:1}
+.nfc-modal-card{width:320px;max-width:calc(100vw - 40px);background:var(--surface);border:1px solid var(--border-light);border-radius:20px;padding:28px 24px;text-align:center;transform:scale(0.9);transition:transform 0.35s cubic-bezier(0.34,1.56,0.64,1)}
+.nfc-modal-overlay.open .nfc-modal-card{transform:scale(1)}
+.nfc-icon-wrap{width:80px;height:80px;border-radius:50%;background:rgba(30,64,175,0.08);border:2px solid rgba(30,64,175,0.2);display:flex;align-items:center;justify-content:center;margin:0 auto 16px;animation:nfcReady 2s ease-in-out infinite}
+@keyframes nfcReady{0%,100%{box-shadow:0 0 0 0 rgba(37,99,235,0.3)}50%{box-shadow:0 0 0 16px rgba(37,99,235,0)}}
+.nfc-icon-wrap svg{width:36px;height:36px;color:var(--accent-glow)}
+.nfc-status{font-size:14px;font-weight:600;color:var(--text);margin-bottom:6px}
+.nfc-sub{font-size:12px;color:var(--text-secondary);line-height:1.6;margin-bottom:16px}
+.nfc-close{padding:11px 32px;border:1px solid var(--border-light);border-radius:10px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;cursor:pointer;background:var(--bg);color:var(--text);transition:all 0.2s}
+.nfc-close:hover{border-color:rgba(30,64,175,0.25)}
+.nfc-install-btn{width:100%;padding:13px;border:none;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;background:linear-gradient(135deg,#1e3a8a,#2563eb);color:#fff;transition:all 0.2s;margin-bottom:10px}
+.nfc-install-btn:hover{box-shadow:0 3px 14px rgba(37,99,235,0.3);transform:translateY(-1px)}
+
+/* ADD TO WALLET BUTTON */
+.btn-wallet{width:100%;padding:15px;border:none;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;color:#fff;background:linear-gradient(135deg,#0a0a0a,#1a1a2e,#16213e);box-shadow:0 2px 16px rgba(0,0,0,0.35),inset 0 1px 0 rgba(255,255,255,0.08);transition:all 0.25s;letter-spacing:0.3px;position:relative;overflow:hidden}
+.btn-wallet::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,transparent 30%,rgba(255,255,255,0.04) 50%,transparent 70%);transition:transform 0.6s}
+.btn-wallet:hover{box-shadow:0 4px 24px rgba(0,0,0,0.45),inset 0 1px 0 rgba(255,255,255,0.12);transform:translateY(-1px)}
+.btn-wallet:hover::before{transform:translateX(100%)}
+.btn-wallet:active{transform:translateY(0)}
+.btn-wallet svg{width:18px;height:18px}
+.wallet-badge{display:inline-flex;align-items:center;gap:4px;font-size:9px;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:var(--text-muted);opacity:0.6;margin-left:4px}
+.wallet-modal-overlay{position:fixed;inset:0;z-index:900;background:rgba(0,0,0,0.7);backdrop-filter:blur(6px);display:none;align-items:flex-end;justify-content:center;opacity:0;transition:opacity 0.25s ease}
+.wallet-modal-overlay.open{display:flex;opacity:1}
+.wallet-modal-sheet{width:100%;max-width:440px;background:var(--surface);border:1px solid var(--border-light);border-radius:20px 20px 0 0;padding:24px 20px 32px;transform:translateY(100%);transition:transform 0.35s cubic-bezier(0.34,1.56,0.64,1)}
+.wallet-modal-overlay.open .wallet-modal-sheet{transform:translateY(0)}
+.wallet-opt{display:flex;align-items:center;gap:14px;padding:14px 16px;border-radius:12px;background:var(--bg);border:1px solid var(--border-light);cursor:pointer;transition:all 0.2s;margin-bottom:8px}
+.wallet-opt:last-child{margin-bottom:0}
+.wallet-opt:hover{border-color:rgba(30,64,175,0.35);background:rgba(30,64,175,0.06);transform:translateX(3px)}
+.wallet-opt-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.wallet-opt-icon.apple{background:linear-gradient(135deg,#000,#1a1a2e)}
+.wallet-opt-icon.google{background:linear-gradient(135deg,#1a73e8,#4285f4)}
+.wallet-opt-icon.generic{background:linear-gradient(135deg,var(--accent),var(--accent-light))}
+.wallet-opt-icon svg{width:22px;height:22px;color:#fff}
+.wallet-opt-body{flex:1}
+.wallet-opt-title{font-size:14px;font-weight:600;color:var(--text)}
+.wallet-opt-sub{font-size:11px;color:var(--text-secondary);margin-top:2px}
+
+/* SAVE CONTACT MODAL */
 .modal-overlay{position:fixed;inset:0;z-index:900;background:rgba(0,0,0,0.7);backdrop-filter:blur(6px);display:none;align-items:flex-end;justify-content:center;opacity:0;transition:opacity 0.25s ease}
 .modal-overlay.open{display:flex;opacity:1}
 .modal-sheet{width:100%;max-width:440px;background:var(--surface);border:1px solid var(--border-light);border-radius:20px 20px 0 0;padding:24px 20px 32px;transform:translateY(100%);transition:transform 0.35s cubic-bezier(0.34,1.56,0.64,1)}
@@ -107,9 +175,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .modal-confirm{flex:1;padding:13px;border:none;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;background:linear-gradient(135deg,#1e3a8a,#1e40af,#2563eb);color:#fff;box-shadow:0 2px 12px rgba(30,64,175,0.25);transition:all 0.2s;opacity:0.5;pointer-events:none}
 .modal-confirm.active{opacity:1;pointer-events:auto}
 
-/* ═══════════════════════════════════════ */
-/* ═══ CHATBOT — FULL REDESIGN ═══ */
-/* ═══════════════════════════════════════ */
+/* CHATBOT — FULL REDESIGN */
 
 /* FAB Button */
 .chat-fab-wrap{position:fixed;bottom:24px;right:24px;z-index:800;animation:fabReveal 0.8s cubic-bezier(0.34,1.56,0.64,1) 3.5s both}
@@ -143,7 +209,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 @keyframes bubbleIn{from{opacity:0;transform:translateX(10px) scale(0.9)}to{opacity:1;transform:translateX(0) scale(1)}}
 .chat-fab.active~.chat-bubble{opacity:0;pointer-events:none}
 
-/* ═══ CHAT WINDOW ═══ */
+/* CHAT WINDOW */
 .chat-window{position:fixed;bottom:104px;right:20px;z-index:800;width:380px;max-width:calc(100vw - 28px);height:540px;max-height:calc(100vh - 130px);background:var(--bg);border:1px solid rgba(37,99,235,0.15);border-radius:20px;box-shadow:0 16px 56px rgba(0,0,0,0.65),0 0 0 1px rgba(255,255,255,0.03);display:none;flex-direction:column;overflow:hidden;transform-origin:bottom right;transform:translateY(16px) scale(0.92);opacity:0;transition:all 0.35s cubic-bezier(0.34,1.56,0.64,1)}
 .chat-window.open{display:flex;transform:translateY(0) scale(1);opacity:1}
 
@@ -295,9 +361,14 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 
   <div class="cta-section">
     <button class="btn-save" id="btnSave"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>Save Contact</button>
+    <button class="btn-wallet" id="btnWallet"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M16 12h.01"/><path d="M2 10h20"/></svg>Add to Wallet</button>
     <div class="btn-row">
       <button class="btn-out" id="btnShare"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>Share</button>
       <button class="btn-out" id="btnMessage"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>Message</button>
+    </div>
+    <div class="share-tools-row">
+      <button class="btn-tool" id="btnQR"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="3" height="3"/><line x1="21" y1="14" x2="21" y2="17"/><line x1="14" y1="21" x2="17" y2="21"/><line x1="21" y1="21" x2="21" y2="21.01"/></svg>QR Code</button>
+      <button class="btn-tool nfc-btn" id="btnNFC"><span class="nfc-pulse"></span><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 8.32a7.43 7.43 0 010 7.36"/><path d="M9.46 6.21a11.76 11.76 0 010 11.58"/><path d="M12.91 4.1a16.07 16.07 0 010 15.8"/><path d="M16.37 2a20.4 20.4 0 010 20"/></svg>Write NFC Tag</button>
     </div>
   </div>
   <div class="foot"><p class="foot-line">Pioneering Digital Outreach ®</p></div>
@@ -306,7 +377,54 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 <!-- Save Contact Modal -->
 <div class="modal-overlay" id="svcModal"><div class="modal-sheet"><div class="modal-handle"></div><div class="modal-title">What can I help you with?</div><div class="modal-sub">Select a service so I'm saved in your contacts with context — you'll always remember why we connected.</div><div class="svc-options" id="svcOptions"><div class="svc-opt" data-svc="AI"><span class="svc-radio"></span><span class="svc-opt-label">AI & Automations</span></div><div class="svc-opt" data-svc="Digital Marketing"><span class="svc-radio"></span><span class="svc-opt-label">Digital Marketing</span></div><div class="svc-opt" data-svc="Software Dev"><span class="svc-radio"></span><span class="svc-opt-label">Software Development</span></div><div class="svc-opt" data-svc="Web Dev"><span class="svc-radio"></span><span class="svc-opt-label">Web Development</span></div><div class="svc-opt" data-svc="UI/UX"><span class="svc-radio"></span><span class="svc-opt-label">UI/UX Design</span></div><div class="svc-opt" data-svc="SaaS"><span class="svc-radio"></span><span class="svc-opt-label">SaaS</span></div><div class="svc-opt" data-svc="App Dev"><span class="svc-radio"></span><span class="svc-opt-label">App Development</span></div><div class="svc-opt" data-svc="Branding"><span class="svc-radio"></span><span class="svc-opt-label">Branding</span></div></div><div class="modal-actions"><button class="modal-cancel" id="modalCancel">Cancel</button><button class="modal-confirm" id="modalConfirm">Save Contact</button></div></div></div>
 
-<!-- ═══ CHATBOT UI ═══ -->
+<!-- Wallet Modal -->
+<div class="wallet-modal-overlay" id="walletModal">
+  <div class="wallet-modal-sheet">
+    <div class="modal-handle"></div>
+    <div class="modal-title">Add to Wallet</div>
+    <div class="modal-sub">Save this card to your wallet app for quick access anytime. Choose your preferred wallet below.</div>
+    <div class="wallet-opt" id="walletApple">
+      <div class="wallet-opt-icon apple"><svg fill="currentColor" viewBox="0 0 24 24"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg></div>
+      <div class="wallet-opt-body"><div class="wallet-opt-title">Apple Wallet</div><div class="wallet-opt-sub">Save as a pass on your iPhone</div></div>
+      <div class="c-arrow"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg></div>
+    </div>
+    <div class="wallet-opt" id="walletGoogle">
+      <div class="wallet-opt-icon google"><svg fill="currentColor" viewBox="0 0 24 24"><path d="M3 6l3 1.7V11a11.4 11.4 0 006 10 11.4 11.4 0 006-10V7.7L21 6l-9-4-9 4z"/></svg></div>
+      <div class="wallet-opt-body"><div class="wallet-opt-title">Google Wallet</div><div class="wallet-opt-sub">Save as a pass on Android</div></div>
+      <div class="c-arrow"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg></div>
+    </div>
+    <div class="wallet-opt" id="walletDownload">
+      <div class="wallet-opt-icon generic"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></div>
+      <div class="wallet-opt-body"><div class="wallet-opt-title">Download Pass</div><div class="wallet-opt-sub">Save .pkpass file for any wallet app</div></div>
+      <div class="c-arrow"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg></div>
+    </div>
+    <div class="modal-actions"><button class="modal-cancel" id="walletCancel">Cancel</button></div>
+  </div>
+</div>
+
+<!-- QR Code Modal -->
+<div class="qr-modal-overlay" id="qrModal">
+  <div class="qr-modal-card">
+    <div class="modal-title">Scan to Connect</div>
+    <div class="qr-container" id="qrContainer"></div>
+    <div class="qr-url">harshpreetbhasin.com</div>
+    <div class="qr-hint">Scan this QR code with any phone camera to instantly open the digital card in a new window.</div>
+    <button class="qr-close" id="qrClose">Close</button>
+  </div>
+</div>
+
+<!-- NFC Modal -->
+<div class="nfc-modal-overlay" id="nfcModal">
+  <div class="nfc-modal-card">
+    <div class="nfc-icon-wrap"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 8.32a7.43 7.43 0 010 7.36"/><path d="M9.46 6.21a11.76 11.76 0 010 11.58"/><path d="M12.91 4.1a16.07 16.07 0 010 15.8"/><path d="M16.37 2a20.4 20.4 0 010 20"/></svg></div>
+    <div class="nfc-status" id="nfcStatus">Ready to Write Tag</div>
+    <div class="nfc-sub" id="nfcSub">Place your phone on an NFC tag to program it with your digital business card. Anyone who taps the tag will instantly see your contact details.</div>
+    <button class="nfc-install-btn" id="nfcInstall" style="display:none">Install App for NFC Tags</button>
+    <button class="nfc-close" id="nfcClose">Close</button>
+  </div>
+</div>
+
+<!-- CHATBOT UI -->
 <div class="chat-fab-wrap">
   <button class="chat-fab" id="chatFab">
     <img src="data:image/jpeg;base64,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" alt="Chat with Harshpreet">
@@ -378,9 +496,7 @@ var _ve='EMAIL;TYPE=WORK,pref:'+_em+'\n';
 var _vu='URL;TYPE=WORK:https://www.hotbotstudios.com\nURL;TYPE=HOME:https://harshpreetbhasin.com\nitem1.URL:https://www.linkedin.com/in/harshpreet-singh-bhasin/\nitem1.X-ABLabel:LinkedIn\nADR;TYPE=WORK:;;2nd Floor\, M-430 Guruharkishan Nagar;Paschim Vihar;New Delhi;110087;India\n';
 var _vend='\nEND:VCARD';
 
-/* ═══════════════════════════════════ */
-/* ═══ n8n WEBHOOK CONFIGURATION ═══ */
-/* ═══════════════════════════════════ */
+/* n8n WEBHOOK CONFIGURATION */
 var WEBHOOK_URL='https://n8n.harshpreetbhasin.com/webhook/chatbot';
 var WEBHOOK_CALLBACK='https://n8n.harshpreetbhasin.com/webhook/chatbot';
 var WEBHOOK_POLL='https://n8n.harshpreetbhasin.com/webhook/chatbot';
@@ -390,9 +506,7 @@ var chatMode='ai';
 var msgHistory=[];
 var pollTimer=null;
 var lastPollTs=0;
-/* ═══════════════════════════════════ */
-
-/* ═══ FRONTEND GUARDRAILS ═══ */
+/* FRONTEND GUARDRAILS */
 var MSG_LIMIT=25; /* max messages per session before forced lead capture */
 var userMsgCount=0;
 var RATE_MS=1500; /* min ms between messages (anti-spam) */
@@ -427,7 +541,7 @@ var avatarSrc=document.querySelector('.chat-fab img').src;
 function getTime(){var d=new Date(),h=d.getHours(),m=d.getMinutes(),a=h>=12?'PM':'AM';return(h%12||12)+':'+(m<10?'0':'')+m+' '+a}
 
 document.addEventListener('DOMContentLoaded',function(){
-  /* ═══ CARD LOGIC ═══ */
+  /* CARD LOGIC */
   document.getElementById('readToggle').addEventListener('click',function(){var t=document.getElementById('aboutText');t.classList.toggle('expanded');this.textContent=t.classList.contains('expanded')?'Read less':'Read more'});
   var _sel='';
   document.getElementById('btnSave').addEventListener('click',function(){_sel='';var o=document.querySelectorAll('.svc-opt');for(var i=0;i<o.length;i++)o[i].classList.remove('selected');document.getElementById('modalConfirm').classList.remove('active');document.getElementById('svcModal').classList.add('open')});
@@ -437,12 +551,164 @@ document.addEventListener('DOMContentLoaded',function(){
   document.getElementById('modalConfirm').addEventListener('click',function(){if(!_sel)return;var fn='Harshpreet Singh Bhasin '+_sel;var vc=_vb+'N:Bhasin '+_sel+';Harshpreet;Singh;;\nFN:'+fn+'\n'+_vo+_vt+_ve+_vu+'NOTE:Service Interest: '+_sel+' | Services: AI & Automations\\, Digital Marketing\\, Software Development\\, Web Development\\, UI/UX Design\\, SaaS\\, App Development\\, Branding | Website: https://www.hotbotstudios.com | LinkedIn: https://www.linkedin.com/in/harshpreet-singh-bhasin/ | Office: 2nd Floor\\, M-430 Guruharkishan Nagar\\, Paschim Vihar\\, New Delhi 110087'+_vend;var iOS=/iPad|iPhone|iPod/.test(navigator.userAgent),and=/Android/i.test(navigator.userAgent);if(iOS)window.location.href='data:text/x-vcard;charset=utf-8,'+encodeURIComponent(vc);else if(and){var b=new Blob([vc],{type:'text/x-vcard'}),u=URL.createObjectURL(b),a=document.createElement('a');a.href=u;a.click();setTimeout(function(){URL.revokeObjectURL(u)},5e3)}else{var b=new Blob([vc],{type:'text/vcard;charset=utf-8'}),u=URL.createObjectURL(b),a=document.createElement('a');a.href=u;a.download='Harshpreet_Singh_Bhasin_'+_sel.replace(/[^a-zA-Z0-9]/g,'_')+'.vcf';document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(u)}document.getElementById('svcModal').classList.remove('open');_toast('Opening Contacts \u2014 save as '+fn);if(typeof gtag==='function')gtag('event','save_contact',{service:_sel})});
   document.getElementById('btnShare').addEventListener('click',function(){if(navigator.share)navigator.share({title:'Harshpreet Singh Bhasin - HotBot Studios',text:'Digital card',url:'https://harshpreetbhasin.com'}).catch(function(){});else{if(navigator.clipboard)navigator.clipboard.writeText('https://harshpreetbhasin.com');_toast('Link copied')}});
   document.getElementById('btnMessage').addEventListener('click',function(){window.open('https://wa.me/919700001534','_blank')});
+
+  /* WALLET INTEGRATION */
+  document.getElementById('btnWallet').addEventListener('click',function(){document.getElementById('walletModal').classList.add('open')});
+  document.getElementById('walletCancel').addEventListener('click',function(){document.getElementById('walletModal').classList.remove('open')});
+  document.getElementById('walletModal').addEventListener('click',function(e){if(e.target===this)this.classList.remove('open')});
+
+  function createPassIcon(size,bgColor){var c=document.createElement('canvas');c.width=size;c.height=size;var ctx=c.getContext('2d');ctx.fillStyle=bgColor;ctx.fillRect(0,0,size,size);ctx.fillStyle='#ffffff';ctx.font='bold '+Math.floor(size*0.4)+'px DM Sans, sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText('HSB',size/2,size/2);return new Promise(function(resolve){c.toBlob(function(blob){resolve(blob)},'image/png')})}
+
+  function generatePkpass(){
+    var pass={
+      formatVersion:1,
+      passTypeIdentifier:'pass.com.hotbotstudios.vcard',
+      serialNumber:'HSB-'+Date.now(),
+      teamIdentifier:'HOTBOT',
+      organizationName:'HotBot Studios LLP',
+      description:'Harshpreet Singh Bhasin - Digital Business Card',
+      foregroundColor:'rgb(255, 255, 255)',
+      backgroundColor:'rgb(8, 12, 20)',
+      labelColor:'rgb(155, 170, 200)',
+      logoText:'HotBot Studios',
+      generic:{
+        headerFields:[{key:'title',label:'TITLE',value:'Managing Partner | CEO'}],
+        primaryFields:[{key:'name',label:'NAME',value:'Harshpreet Singh Bhasin'}],
+        secondaryFields:[{key:'company',label:'COMPANY',value:'HotBot Studios LLP'},{key:'phone',label:'PHONE',value:'+91 97 0000 1534'}],
+        auxiliaryFields:[{key:'email',label:'EMAIL',value:_em},{key:'web',label:'WEBSITE',value:'hotbotstudios.com'}],
+        backFields:[{key:'phone2',label:'Backup Phone',value:'+91 947 947 0052'},{key:'landline',label:'Landline',value:'011-4161-0560'},{key:'linkedin',label:'LinkedIn',value:'linkedin.com/in/harshpreet-singh-bhasin'},{key:'address',label:'Office Address',value:'2nd Floor, M-430 Guruharkishan Nagar, Paschim Vihar, New Delhi 110087, India'},{key:'services',label:'Services',value:'AI & Automations, Digital Marketing, Software Development, Web Development, UI/UX Design, SaaS, App Development, Branding'}]
+      }
+    };
+    return Promise.all([createPassIcon(29,'#0c1220'),createPassIcon(58,'#0c1220'),createPassIcon(87,'#0c1220'),createPassIcon(160,'#1e40af'),createPassIcon(320,'#1e40af')]).then(function(icons){
+      var zip=new JSZip();
+      zip.file('pass.json',JSON.stringify(pass));
+      zip.file('icon.png',icons[0]);
+      zip.file('icon@2x.png',icons[1]);
+      zip.file('icon@3x.png',icons[2]);
+      zip.file('logo.png',icons[3]);
+      zip.file('logo@2x.png',icons[4]);
+      return zip.generateAsync({type:'blob',mimeType:'application/vnd.apple.pkpass'});
+    });
+  }
+
+  function downloadSignedPass(platform){
+    _toast('Generating signed wallet pass...');
+    fetch('/api/wallet').then(function(r){
+      if(r.ok)return r.blob();
+      throw new Error('Server signing not available');
+    }).then(function(blob){
+      var u=URL.createObjectURL(blob);
+      var a=document.createElement('a');a.href=u;a.download='Harshpreet_Singh_Bhasin.pkpass';document.body.appendChild(a);a.click();document.body.removeChild(a);
+      setTimeout(function(){URL.revokeObjectURL(u)},5e3);
+      document.getElementById('walletModal').classList.remove('open');
+      _toast('Signed pass downloaded — open with your wallet app');
+      if(typeof gtag==='function')gtag('event','wallet_save',{platform:platform,signed:true});
+    }).catch(function(){
+      _toast('Generating pass locally...');
+      generatePkpass().then(function(blob){
+        var u=URL.createObjectURL(blob);
+        var a=document.createElement('a');a.href=u;a.download='Harshpreet_Singh_Bhasin.pkpass';document.body.appendChild(a);a.click();document.body.removeChild(a);
+        setTimeout(function(){URL.revokeObjectURL(u)},5e3);
+        document.getElementById('walletModal').classList.remove('open');
+        _toast('Pass downloaded');
+        if(typeof gtag==='function')gtag('event','wallet_save',{platform:platform,signed:false});
+      }).catch(function(){_toast('Error generating pass — try again')});
+    });
+  }
+
+  document.getElementById('walletApple').addEventListener('click',function(){downloadSignedPass('apple')});
+  document.getElementById('walletGoogle').addEventListener('click',function(){downloadSignedPass('google')});
+  document.getElementById('walletDownload').addEventListener('click',function(){downloadSignedPass('download')});
+
+  /* QR CODE GENERATOR */
+  var qrGenerated=false;
+  document.getElementById('btnQR').addEventListener('click',function(){
+    document.getElementById('qrModal').classList.add('open');
+    if(!qrGenerated){
+      qrGenerated=true;
+      var container=document.getElementById('qrContainer');
+      new QRCode(container,{text:'https://harshpreetbhasin.com',width:176,height:176,colorDark:'#0c1220',colorLight:'#ffffff',correctLevel:QRCode.CorrectLevel.H});
+    }
+    if(typeof gtag==='function')gtag('event','qr_shown');
+  });
+  document.getElementById('qrClose').addEventListener('click',function(){document.getElementById('qrModal').classList.remove('open')});
+  document.getElementById('qrModal').addEventListener('click',function(e){if(e.target===this)this.classList.remove('open')});
+
+  /* NFC SHARING */
+  var nfcAbort=null;
+  function stopNFC(){if(nfcAbort){nfcAbort.abort();nfcAbort=null}}
+
+  document.getElementById('btnNFC').addEventListener('click',function(){
+    var modal=document.getElementById('nfcModal');
+    var status=document.getElementById('nfcStatus');
+    var sub=document.getElementById('nfcSub');
+    var installBtn=document.getElementById('nfcInstall');
+    var iconWrap=document.querySelector('.nfc-icon-wrap');
+    modal.classList.add('open');
+
+    if('NDEFReader' in window){
+      status.textContent='Ready to Write NFC Tag';
+      sub.textContent='Hold the top of your phone against your NFC tag. Your contact card and website URL will be written to the tag. Anyone who taps the tag will instantly get your details.';
+      installBtn.style.display='none';
+      iconWrap.style.borderColor='rgba(37,99,235,0.4)';
+
+      stopNFC();
+      nfcAbort=new AbortController();
+
+      var ndef=new NDEFReader();
+      var vcardData=_vb+'N:Bhasin;Harshpreet;Singh;;\nFN:Harshpreet Singh Bhasin\n'+_vo+_vt+_ve+_vu+'NOTE:Digital Business Card | HotBot Studios LLP | https://harshpreetbhasin.com'+_vend;
+
+      ndef.write({records:[
+        {recordType:'url',data:'https://harshpreetbhasin.com'},
+        {recordType:'mime',mediaType:'text/vcard',data:new TextEncoder().encode(vcardData)}
+      ]},{signal:nfcAbort.signal}).then(function(){
+        status.textContent='Tag Written!';
+        sub.textContent='Your NFC tag is now programmed with your digital business card. Anyone who taps this tag with their phone will instantly open your card and see your contact details.';
+        iconWrap.style.borderColor='rgba(34,197,94,0.5)';
+        _toast('NFC tag written successfully');
+        if(typeof gtag==='function')gtag('event','nfc_write',{status:'success'});
+        setTimeout(function(){
+          status.textContent='Write another tag?';
+          sub.textContent='Hold your phone against a new NFC tag to program it, or close this dialog.';
+          iconWrap.style.borderColor='rgba(37,99,235,0.4)';
+        },3000);
+      }).catch(function(err){
+        if(err.name==='AbortError')return;
+        if(err.message&&err.message.indexOf('permission')>-1){
+          status.textContent='NFC Permission Needed';
+          sub.textContent='Please allow NFC access when prompted by your browser. Tap below to try again.';
+          installBtn.style.display='block';
+          installBtn.textContent='Retry NFC Scan';
+          installBtn.onclick=function(){document.getElementById('btnNFC').click()};
+        } else {
+          status.textContent='Hold Steady on the Tag';
+          sub.textContent='NFC is active. Place the top of your phone flat against the NFC tag and hold still for a moment.';
+        }
+      });
+    } else {
+      var isIOS=/iPad|iPhone|iPod/.test(navigator.userAgent);
+      if(isIOS){
+        status.textContent='Write NFC Tags on iPhone';
+        sub.textContent='Web NFC is not available on iOS. Use the HotBot NFC app or NFC Tools to write your card URL onto physical NFC tags. Anyone who taps the tag with any phone will instantly open your digital card.';
+        installBtn.style.display='block';
+        installBtn.textContent='Get NFC Tools App';
+        installBtn.onclick=function(){window.open('https://apps.apple.com/app/nfc-tools/id1252962749','_blank')};
+      } else {
+        status.textContent='NFC Not Supported';
+        sub.textContent='Your browser does not support Web NFC. Open this page in Chrome on Android to write NFC tags, or use the QR code to share your card.';
+        installBtn.style.display='none';
+      }
+    }
+    if(typeof gtag==='function')gtag('event','nfc_opened');
+  });
+  document.getElementById('nfcClose').addEventListener('click',function(){stopNFC();document.getElementById('nfcModal').classList.remove('open')});
+  document.getElementById('nfcModal').addEventListener('click',function(e){if(e.target===this){stopNFC();this.classList.remove('open')}});
   document.getElementById('linkWebsite').addEventListener('click',function(e){e.preventDefault();window.open('https://hotbotstudios.com','_blank')});
   document.getElementById('linkLinkedin').addEventListener('click',function(e){e.preventDefault();window.open('https://www.linkedin.com/in/harshpreet-singh-bhasin/','_blank')});
   document.getElementById('linkAddress').addEventListener('click',function(e){e.preventDefault();window.open('https://share.google/MPZax9XjkaRKxinqf','_blank')});
   setTimeout(function(){var s=document.getElementById('scanner');if(s)s.remove()},3e3);
 
-  /* ═══ CHAT LOGIC ═══ */
+  /* CHAT LOGIC */
   var fab=document.getElementById('chatFab'),win=document.getElementById('chatWindow'),msgs=document.getElementById('chatMessages'),inp=document.getElementById('chatInput'),sendBtn=document.getElementById('chatSend'),bubble=document.getElementById('chatBubble'),isOpen=false,welcomed=false;
 
   function openChat(){isOpen=true;win.classList.add('open');fab.classList.add('active');bubble.style.opacity='0';inp.focus();if(chatMode==='live'&&!pollTimer)startPoll();if(!welcomed){welcomed=true;addBotMsg("Hey there! \ud83d\udc4b I'm Harshpreet's AI assistant. I know everything about his work, services, and expertise.\n\nAsk me anything or choose a quick option below!");addQuickReplies(['What services do you offer?','Tell me about Harshpreet','I want to discuss a project','Talk to Harshpreet directly'])}if(typeof gtag==='function')gtag('event','chat_opened')}
@@ -527,7 +793,7 @@ document.addEventListener('DOMContentLoaded',function(){
     else if(mode==='callback'||mode==='ended'){banner.className='ch-mode-banner';statusEl.classList.add('away');statusText.textContent='Away';stopPoll()}
   }
 
-  /* ═══ POLLING for live Telegram messages ═══ */
+  /* POLLING for live Telegram messages */
   function startPoll(){stopPoll();pollTimer=setInterval(pollMessages,3000)}
   function stopPoll(){if(pollTimer){clearInterval(pollTimer);pollTimer=null}}
   function pollMessages(){
@@ -636,6 +902,7 @@ document.addEventListener('DOMContentLoaded',function(){
 function _toast(m){var t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(function(){t.classList.remove('show')},2400)}
 }();
 </script>
+<script>if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js').catch(function(){})}</script>
 <noscript><div style="display:flex;align-items:center;justify-content:center;height:100vh;background:#080c14;color:#3b82f6;font-family:monospace;text-align:center;padding:20px">Please enable JavaScript to view this digital card.</div></noscript>
 </body>
 </html>
