@@ -4,6 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 <title>Harshpreet Singh Bhasin — HotBot Studios</title>
+<meta name="description" content="Digital business card for Harshpreet Singh Bhasin — Managing Partner & CEO at HotBot Studios LLP">
+<meta name="theme-color" content="#080c14">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Harshpreet">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-NRFFM3F3V3"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-NRFFM3F3V3');</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
@@ -361,7 +368,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
     </div>
     <div class="share-tools-row">
       <button class="btn-tool" id="btnQR"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="3" height="3"/><line x1="21" y1="14" x2="21" y2="17"/><line x1="14" y1="21" x2="17" y2="21"/><line x1="21" y1="21" x2="21" y2="21.01"/></svg>QR Code</button>
-      <button class="btn-tool nfc-btn" id="btnNFC"><span class="nfc-pulse"></span><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 8.32a7.43 7.43 0 010 7.36"/><path d="M9.46 6.21a11.76 11.76 0 010 11.58"/><path d="M12.91 4.1a16.07 16.07 0 010 15.8"/><path d="M16.37 2a20.4 20.4 0 010 20"/></svg>NFC Tap</button>
+      <button class="btn-tool nfc-btn" id="btnNFC"><span class="nfc-pulse"></span><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 8.32a7.43 7.43 0 010 7.36"/><path d="M9.46 6.21a11.76 11.76 0 010 11.58"/><path d="M12.91 4.1a16.07 16.07 0 010 15.8"/><path d="M16.37 2a20.4 20.4 0 010 20"/></svg>Write NFC Tag</button>
     </div>
   </div>
   <div class="foot"><p class="foot-line">Pioneering Digital Outreach ®</p></div>
@@ -410,9 +417,9 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 <div class="nfc-modal-overlay" id="nfcModal">
   <div class="nfc-modal-card">
     <div class="nfc-icon-wrap"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 8.32a7.43 7.43 0 010 7.36"/><path d="M9.46 6.21a11.76 11.76 0 010 11.58"/><path d="M12.91 4.1a16.07 16.07 0 010 15.8"/><path d="M16.37 2a20.4 20.4 0 010 20"/></svg></div>
-    <div class="nfc-status" id="nfcStatus">Ready to Share</div>
-    <div class="nfc-sub" id="nfcSub">Hold your phone near another device to instantly share your contact card via NFC.</div>
-    <button class="nfc-install-btn" id="nfcInstall" style="display:none">Install App for NFC Sharing</button>
+    <div class="nfc-status" id="nfcStatus">Ready to Write Tag</div>
+    <div class="nfc-sub" id="nfcSub">Place your phone on an NFC tag to program it with your digital business card. Anyone who taps the tag will instantly see your contact details.</div>
+    <button class="nfc-install-btn" id="nfcInstall" style="display:none">Install App for NFC Tags</button>
     <button class="nfc-close" id="nfcClose">Close</button>
   </div>
 </div>
@@ -584,41 +591,34 @@ document.addEventListener('DOMContentLoaded',function(){
     });
   }
 
-  document.getElementById('walletApple').addEventListener('click',function(){
-    _toast('Generating wallet pass...');
-    generatePkpass().then(function(blob){
+  function downloadSignedPass(platform){
+    _toast('Generating signed wallet pass...');
+    fetch('/api/wallet').then(function(r){
+      if(r.ok)return r.blob();
+      throw new Error('Server signing not available');
+    }).then(function(blob){
       var u=URL.createObjectURL(blob);
       var a=document.createElement('a');a.href=u;a.download='Harshpreet_Singh_Bhasin.pkpass';document.body.appendChild(a);a.click();document.body.removeChild(a);
       setTimeout(function(){URL.revokeObjectURL(u)},5e3);
       document.getElementById('walletModal').classList.remove('open');
-      _toast('Pass downloaded — open with Apple Wallet');
-      if(typeof gtag==='function')gtag('event','wallet_save',{platform:'apple'});
-    }).catch(function(){_toast('Error generating pass — try again')});
-  });
+      _toast('Signed pass downloaded — open with your wallet app');
+      if(typeof gtag==='function')gtag('event','wallet_save',{platform:platform,signed:true});
+    }).catch(function(){
+      _toast('Generating pass locally...');
+      generatePkpass().then(function(blob){
+        var u=URL.createObjectURL(blob);
+        var a=document.createElement('a');a.href=u;a.download='Harshpreet_Singh_Bhasin.pkpass';document.body.appendChild(a);a.click();document.body.removeChild(a);
+        setTimeout(function(){URL.revokeObjectURL(u)},5e3);
+        document.getElementById('walletModal').classList.remove('open');
+        _toast('Pass downloaded');
+        if(typeof gtag==='function')gtag('event','wallet_save',{platform:platform,signed:false});
+      }).catch(function(){_toast('Error generating pass — try again')});
+    });
+  }
 
-  document.getElementById('walletGoogle').addEventListener('click',function(){
-    _toast('Generating wallet pass...');
-    generatePkpass().then(function(blob){
-      var u=URL.createObjectURL(blob);
-      var a=document.createElement('a');a.href=u;a.download='Harshpreet_Singh_Bhasin.pkpass';document.body.appendChild(a);a.click();document.body.removeChild(a);
-      setTimeout(function(){URL.revokeObjectURL(u)},5e3);
-      document.getElementById('walletModal').classList.remove('open');
-      _toast('Pass downloaded — open with Google Wallet');
-      if(typeof gtag==='function')gtag('event','wallet_save',{platform:'google'});
-    }).catch(function(){_toast('Error generating pass — try again')});
-  });
-
-  document.getElementById('walletDownload').addEventListener('click',function(){
-    _toast('Generating wallet pass...');
-    generatePkpass().then(function(blob){
-      var u=URL.createObjectURL(blob);
-      var a=document.createElement('a');a.href=u;a.download='Harshpreet_Singh_Bhasin.pkpass';document.body.appendChild(a);a.click();document.body.removeChild(a);
-      setTimeout(function(){URL.revokeObjectURL(u)},5e3);
-      document.getElementById('walletModal').classList.remove('open');
-      _toast('Pass file downloaded');
-      if(typeof gtag==='function')gtag('event','wallet_save',{platform:'download'});
-    }).catch(function(){_toast('Error generating pass — try again')});
-  });
+  document.getElementById('walletApple').addEventListener('click',function(){downloadSignedPass('apple')});
+  document.getElementById('walletGoogle').addEventListener('click',function(){downloadSignedPass('google')});
+  document.getElementById('walletDownload').addEventListener('click',function(){downloadSignedPass('download')});
 
   /* QR CODE GENERATOR */
   var qrGenerated=false;
@@ -635,52 +635,74 @@ document.addEventListener('DOMContentLoaded',function(){
   document.getElementById('qrModal').addEventListener('click',function(e){if(e.target===this)this.classList.remove('open')});
 
   /* NFC SHARING */
+  var nfcAbort=null;
+  function stopNFC(){if(nfcAbort){nfcAbort.abort();nfcAbort=null}}
+
   document.getElementById('btnNFC').addEventListener('click',function(){
     var modal=document.getElementById('nfcModal');
     var status=document.getElementById('nfcStatus');
     var sub=document.getElementById('nfcSub');
     var installBtn=document.getElementById('nfcInstall');
+    var iconWrap=document.querySelector('.nfc-icon-wrap');
     modal.classList.add('open');
 
     if('NDEFReader' in window){
-      status.textContent='NFC Ready — Tap to Share';
-      sub.textContent='Hold your phone near another NFC-enabled device. Your contact card will be transferred instantly.';
+      status.textContent='Ready to Write NFC Tag';
+      sub.textContent='Hold the top of your phone against your NFC tag. Your contact card and website URL will be written to the tag. Anyone who taps the tag will instantly get your details.';
       installBtn.style.display='none';
-      try{
-        var ndef=new NDEFReader();
-        var vcardData=_vb+'N:Bhasin;Harshpreet;Singh;;\nFN:Harshpreet Singh Bhasin\n'+_vo+_vt+_ve+_vu+'NOTE:Digital Business Card | HotBot Studios LLP | https://harshpreetbhasin.com'+_vend;
-        ndef.write({records:[{recordType:'mime',mediaType:'text/x-vcard',data:new TextEncoder().encode(vcardData)},{recordType:'url',data:'https://harshpreetbhasin.com'}]}).then(function(){
-          status.textContent='Contact Shared!';
-          sub.textContent='Your contact card has been successfully transferred via NFC.';
-          _toast('Contact shared via NFC');
-          if(typeof gtag==='function')gtag('event','nfc_share',{status:'success'});
-        }).catch(function(err){
-          if(err.name==='AbortError')return;
-          status.textContent='Tap Your Phones Together';
-          sub.textContent='NFC is ready. Bring the devices close together to share your contact card.';
-        });
-      }catch(e){
-        status.textContent='NFC Not Available';
-        sub.textContent='Your browser does not support NFC writing. Use Chrome on Android for NFC tap sharing, or scan the QR code instead.';
-      }
+      iconWrap.style.borderColor='rgba(37,99,235,0.4)';
+
+      stopNFC();
+      nfcAbort=new AbortController();
+
+      var ndef=new NDEFReader();
+      var vcardData=_vb+'N:Bhasin;Harshpreet;Singh;;\nFN:Harshpreet Singh Bhasin\n'+_vo+_vt+_ve+_vu+'NOTE:Digital Business Card | HotBot Studios LLP | https://harshpreetbhasin.com'+_vend;
+
+      ndef.write({records:[
+        {recordType:'url',data:'https://harshpreetbhasin.com'},
+        {recordType:'mime',mediaType:'text/vcard',data:new TextEncoder().encode(vcardData)}
+      ]},{signal:nfcAbort.signal}).then(function(){
+        status.textContent='Tag Written!';
+        sub.textContent='Your NFC tag is now programmed with your digital business card. Anyone who taps this tag with their phone will instantly open your card and see your contact details.';
+        iconWrap.style.borderColor='rgba(34,197,94,0.5)';
+        _toast('NFC tag written successfully');
+        if(typeof gtag==='function')gtag('event','nfc_write',{status:'success'});
+        setTimeout(function(){
+          status.textContent='Write another tag?';
+          sub.textContent='Hold your phone against a new NFC tag to program it, or close this dialog.';
+          iconWrap.style.borderColor='rgba(37,99,235,0.4)';
+        },3000);
+      }).catch(function(err){
+        if(err.name==='AbortError')return;
+        if(err.message&&err.message.indexOf('permission')>-1){
+          status.textContent='NFC Permission Needed';
+          sub.textContent='Please allow NFC access when prompted by your browser. Tap below to try again.';
+          installBtn.style.display='block';
+          installBtn.textContent='Retry NFC Scan';
+          installBtn.onclick=function(){document.getElementById('btnNFC').click()};
+        } else {
+          status.textContent='Hold Steady on the Tag';
+          sub.textContent='NFC is active. Place the top of your phone flat against the NFC tag and hold still for a moment.';
+        }
+      });
     } else {
       var isIOS=/iPad|iPhone|iPod/.test(navigator.userAgent);
       if(isIOS){
-        status.textContent='NFC Tap — iOS Setup';
-        sub.textContent='For NFC contact sharing on iPhone, you can write your vCard URL to an NFC tag using a tag-writing app. Anyone who taps the tag with their phone will instantly open your digital card.';
+        status.textContent='Write NFC Tags on iPhone';
+        sub.textContent='Web NFC is not available on iOS. Use the HotBot NFC app or NFC Tools to write your card URL onto physical NFC tags. Anyone who taps the tag with any phone will instantly open your digital card.';
         installBtn.style.display='block';
-        installBtn.textContent='Get NFC Tag Writer App';
+        installBtn.textContent='Get NFC Tools App';
         installBtn.onclick=function(){window.open('https://apps.apple.com/app/nfc-tools/id1252962749','_blank')};
       } else {
         status.textContent='NFC Not Supported';
-        sub.textContent='Your current browser does not support Web NFC. For NFC sharing, use Chrome on Android or write your card URL to an NFC tag using a dedicated app.';
+        sub.textContent='Your browser does not support Web NFC. Open this page in Chrome on Android to write NFC tags, or use the QR code to share your card.';
         installBtn.style.display='none';
       }
     }
     if(typeof gtag==='function')gtag('event','nfc_opened');
   });
-  document.getElementById('nfcClose').addEventListener('click',function(){document.getElementById('nfcModal').classList.remove('open')});
-  document.getElementById('nfcModal').addEventListener('click',function(e){if(e.target===this)this.classList.remove('open')});
+  document.getElementById('nfcClose').addEventListener('click',function(){stopNFC();document.getElementById('nfcModal').classList.remove('open')});
+  document.getElementById('nfcModal').addEventListener('click',function(e){if(e.target===this){stopNFC();this.classList.remove('open')}});
   document.getElementById('linkWebsite').addEventListener('click',function(e){e.preventDefault();window.open('https://hotbotstudios.com','_blank')});
   document.getElementById('linkLinkedin').addEventListener('click',function(e){e.preventDefault();window.open('https://www.linkedin.com/in/harshpreet-singh-bhasin/','_blank')});
   document.getElementById('linkAddress').addEventListener('click',function(e){e.preventDefault();window.open('https://share.google/MPZax9XjkaRKxinqf','_blank')});
@@ -880,6 +902,7 @@ document.addEventListener('DOMContentLoaded',function(){
 function _toast(m){var t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(function(){t.classList.remove('show')},2400)}
 }();
 </script>
+<script>if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js').catch(function(){})}</script>
 <noscript><div style="display:flex;align-items:center;justify-content:center;height:100vh;background:#080c14;color:#3b82f6;font-family:monospace;text-align:center;padding:20px">Please enable JavaScript to view this digital card.</div></noscript>
 </body>
 </html>
