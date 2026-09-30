@@ -78,7 +78,8 @@ module.exports = async function handler(req, res) {
       }],
       generic: {
         headerFields: [
-          { key: 'title', label: 'TITLE', value: 'Managing Partner | CEO' }
+          { key: 'title', label: 'TITLE', value: 'Managing Partner | CEO' },
+          { key: 'founder', label: 'FOUNDER', value: 'Racquets Club Community' }
         ],
         primaryFields: [
           { key: 'name', label: 'NAME', value: 'Harshpreet Singh Bhasin' }
