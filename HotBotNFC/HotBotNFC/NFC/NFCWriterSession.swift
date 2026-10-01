@@ -138,12 +138,12 @@ class NFCWriterSession: NSObject, ObservableObject, NFCNDEFReaderSessionDelegate
     private func buildNDEFMessage() -> NFCNDEFMessage {
         var records: [NFCNDEFPayload] = []
 
-        // Record 1: URL — universally supported, opens the digital card
+        // Record 1: URL: universally supported, opens the digital card
         if let urlPayload = NFCNDEFPayload.wellKnownTypeURIPayload(url: contact.websiteURL) {
             records.append(urlPayload)
         }
 
-        // Record 2: vCard MIME record — contact-aware readers save directly to contacts
+        // Record 2: vCard MIME record: contact-aware readers save directly to contacts
         let vcardData = contact.vCardString.data(using: .utf8) ?? Data()
         let vcardRecord = NFCNDEFPayload(
             format: .media,

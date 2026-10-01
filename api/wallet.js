@@ -3,7 +3,7 @@ const { readFileSync } = require('fs');
 const { join } = require('path');
 
 /*
- * Vercel Serverless Function — Generates a signed .pkpass for Apple Wallet
+ * Vercel Serverless Function: Generates a signed .pkpass for Apple Wallet
  *
  * SETUP REQUIRED (one-time):
  * 1. In Apple Developer > Certificates, Identifiers & Profiles:
@@ -59,7 +59,7 @@ module.exports = async function handler(req, res) {
       serialNumber: 'HSB-' + Date.now(),
       teamIdentifier: TEAM_ID,
       organizationName: 'HotBot Studios LLP',
-      description: 'Harshpreet Singh Bhasin — Digital Business Card',
+      description: 'Harshpreet Singh Bhasin: Digital Business Card',
       foregroundColor: 'rgb(255, 255, 255)',
       backgroundColor: 'rgb(8, 12, 20)',
       labelColor: 'rgb(155, 170, 200)',
@@ -163,7 +163,7 @@ module.exports = async function handler(req, res) {
 
 // Generate a minimal branded PNG icon buffer
 function createIconBuffer(size) {
-  // Minimal 1x1 dark PNG as placeholder — replace with actual branded icons
+  // Minimal 1x1 dark PNG as placeholder: replace with actual branded icons
   // In production, store real icon files in the repo and read them
   const { createCanvas } = (() => {
     try { return require('canvas'); } catch(e) { return {}; }
