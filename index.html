@@ -70,7 +70,7 @@ button{font:inherit;color:inherit}
 .nav-links{display:flex;gap:2px}
 .nav-links a{font-size:13px;color:var(--muted);padding:8px 12px;border-radius:999px;transition:color .5s var(--ease),background .5s var(--ease)}
 .nav-links a:hover{color:var(--ink);background:rgba(255,255,255,.05)}
-.nav-cta{display:inline-flex;align-items:center;gap:8px;padding:6px 6px 6px 14px;border-radius:999px;background:var(--ink);color:#05070c;font-size:13px;font-weight:600;border:0;cursor:pointer;transition:transform .5s var(--ease)}
+.nav-cta{white-space:nowrap;display:inline-flex;align-items:center;gap:8px;padding:6px 6px 6px 14px;border-radius:999px;background:var(--ink);color:#05070c;font-size:13px;font-weight:600;border:0;cursor:pointer;transition:transform .5s var(--ease)}
 .nav-cta:active{transform:scale(.97)}
 .nav-cta .ic{width:26px;height:26px;border-radius:50%;background:#05070c;color:var(--ink);display:grid;place-items:center;transition:transform .5s var(--ease)}
 .nav-cta:hover .ic{transform:translate(2px,-1px) scale(1.06)}
@@ -152,7 +152,7 @@ main{position:relative;z-index:3}
 .tag{position:absolute;display:flex;align-items:center;gap:10px;padding:10px 14px 10px 10px;border-radius:18px;background:rgba(10,14,24,.7);border:1px solid var(--hair-2);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);font-size:12.5px;font-weight:500;white-space:nowrap;animation:tagIn 1.2s var(--spring) both,bob 6s var(--ease) infinite alternate;box-shadow:0 20px 40px -20px rgba(0,0,0,.8)}
 .tag small{display:block;font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:400}
 .tag .dot{width:32px;height:32px;border-radius:10px;display:grid;place-items:center;font-size:15px}
-.tag.t1{left:-6%;top:16%;animation-delay:1.5s,0s}.tag.t2{right:-6%;top:48%;animation-delay:1.65s,1s}.tag.t3{left:4%;bottom:10%;animation-delay:1.8s,2s}
+.tag.t1{left:-8%;top:52%;animation-delay:1.5s,0s}.tag.t2{right:-8%;top:66%;animation-delay:1.65s,1s}.tag.t3{left:-2%;bottom:5%;animation-delay:1.8s,2s}
 @keyframes tagIn{from{opacity:0;transform:scale(.6) translateY(20px)}}
 @keyframes bob{to{translate:0 -10px}}
 .scroll-cue{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);font-family:var(--mono);font-size:10px;letter-spacing:.3em;color:var(--dim);display:flex;flex-direction:column;align-items:center;gap:10px;animation:up 1s var(--ease) 1.9s both}
@@ -240,6 +240,19 @@ main{position:relative;z-index:3}
 .btn-lime .ic{background:#0b1405;color:var(--lime)}
 .values{display:flex;flex-wrap:wrap;gap:8px;margin-top:28px}
 .values span{padding:8px 14px;border-radius:999px;font-size:12.5px;background:rgba(200,242,90,.06);border:1px solid rgba(200,242,90,.16);color:#dff6a6}
+
+/* Corporate events */
+.corp{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(24px,4vw,56px);margin-top:clamp(40px,5vw,64px);padding-top:clamp(32px,4vw,52px);border-top:1px solid rgba(200,242,90,.14);align-items:start}
+.corp h3{font-size:clamp(28px,3.4vw,46px);font-weight:600;letter-spacing:-.04em;line-height:1.04;margin-top:18px}
+.corp h3 .serif{color:var(--lime)}
+.corp p{color:var(--muted);margin-top:14px;font-size:15.5px;line-height:1.7;max-width:52ch}
+.corp-list{list-style:none;display:grid;gap:10px}
+.corp-list li{display:flex;gap:14px;align-items:flex-start;padding:16px 18px;border-radius:18px;border:1px solid rgba(200,242,90,.14);background:rgba(200,242,90,.035);transition:background .5s var(--ease),transform .6s var(--ease)}
+.corp-list li:hover{background:rgba(200,242,90,.08);transform:translateX(4px)}
+.corp-list .cn{font-family:var(--mono);font-size:11px;color:var(--lime);padding-top:3px}
+.corp-list b{display:block;color:var(--ink);font-size:16px;font-weight:600;letter-spacing:-.02em;margin-bottom:3px}
+.corp-list li>span:last-child{font-size:13.5px;color:var(--muted);line-height:1.5}
+@media (max-width:980px){.corp{grid-template-columns:1fr}}
 
 /* Work */
 .work-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:clamp(48px,6vw,80px)}
@@ -532,7 +545,8 @@ main{position:relative;z-index:3}
   .hero{padding-top:92px}
   .hero-grid{gap:12px}
   .portrait{max-width:340px}
-  .tag.t1{left:-2%}.tag.t2{right:-2%}
+  .portrait picture img{width:100%}
+  .tag.t1{left:-3%;top:auto;bottom:36%}.tag.t2{right:-3%;top:auto;bottom:20%}.tag.t3{left:-3%;bottom:4%}
   .chap .core{min-height:360px}
   .xp-row{grid-template-columns:40px 1fr}.xp-row span{display:none}
   .rcc-stats{grid-template-columns:1fr 1fr 1fr}
@@ -707,8 +721,8 @@ main{position:relative;z-index:3}
   </section>
 
   <div class="marquee" aria-hidden="true"><div class="marquee-track">
-    <span>AI &amp; Automations</span><span>Digital Marketing</span><span>Community Building</span><span>Software Development</span><span>Web Development</span><span>UI/UX Design</span><span>SaaS</span><span>App Development</span><span>Branding</span>
-    <span>AI &amp; Automations</span><span>Digital Marketing</span><span>Community Building</span><span>Software Development</span><span>Web Development</span><span>UI/UX Design</span><span>SaaS</span><span>App Development</span><span>Branding</span>
+    <span>AI &amp; Automations</span><span>Digital Marketing</span><span>Community Building</span><span>Software Development</span><span>Web Development</span><span>UI/UX Design</span><span>SaaS</span><span>App Development</span><span>Branding</span><span>Corporate Badminton Events</span>
+    <span>AI &amp; Automations</span><span>Digital Marketing</span><span>Community Building</span><span>Software Development</span><span>Web Development</span><span>UI/UX Design</span><span>SaaS</span><span>App Development</span><span>Branding</span><span>Corporate Badminton Events</span>
   </div></div>
 
   <!-- STORY -->
@@ -786,6 +800,20 @@ main{position:relative;z-index:3}
             <svg class="shuttle" viewBox="0 0 40 40"><path d="M20 4 L30 26 L10 26 Z" fill="#f4f7ea" opacity=".95"/><path d="M14 26 L20 6 M26 26 L20 6 M20 26 L20 6" stroke="#b8c49a" stroke-width=".8"/><ellipse cx="20" cy="30" rx="7" ry="6" fill="#c8f25a"/></svg>
             <div class="court-cap"><span><small>Our arena</small>Divine Happy School, Paschim Vihar</span><span style="color:var(--lime)">● Game on</span></div>
           </div>
+        </div>
+        <div class="corp" id="events">
+          <div class="corp-head">
+            <span class="eyebrow"><i></i>For companies</span>
+            <h3>Corporate badminton events, <span class="serif">hosted end to end.</span></h3>
+            <p>Not just for AI and tech teams. Any company can bring its people to RCC for a sports day, an inter-company tournament or a team offsite at our own arena, open round the clock. We run the courts, fixtures, formats and rankings, and bring the community energy that makes people want to come back.</p>
+            <a class="btn btn-lime" href="https://wa.me/919700001534?text=Hi%20Harshpreet%2C%20I%27d%20like%20to%20plan%20a%20corporate%20badminton%20event%20with%20RCC." target="_blank" rel="noopener" style="margin-top:24px">Plan a corporate event<span class="ic"><svg fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><path d="M7 17L17 7M9 7h8v8"/></svg></span></a>
+          </div>
+          <ul class="corp-list">
+            <li><span class="cn">01</span><span><b>Inter-company tournaments</b>Knockouts and leagues with fixtures and rankings</span></li>
+            <li><span class="cn">02</span><span><b>Team offsites &amp; sports days</b>Mixed-skill formats so everyone gets on court</span></li>
+            <li><span class="cn">03</span><span><b>Corporate leagues</b>Recurring seasons that keep teams coming back</span></li>
+            <li><span class="cn">04</span><span><b>Our own arena, round the clock</b>Book a slot any time, day or night</span></li>
+          </ul>
         </div>
       </div></div>
     </div>
@@ -984,6 +1012,7 @@ main{position:relative;z-index:3}
         <div class="xp-row rv"><i>04</i><h4>Performance Marketing</h4><span>Meta, Google, SEO and conversion design</span></div>
         <div class="xp-row rv"><i>05</i><h4>AI-built Products</h4><span>Next.js platforms shipped lean and fast</span></div>
         <div class="xp-row rv"><i>06</i><h4>Community Building</h4><span>Engagement-led, referral-driven growth</span></div>
+        <div class="xp-row rv"><i>07</i><h4>Corporate Badminton Events</h4><span>Tournaments, leagues and offsites at our own arena</span></div>
       </div>
     </div>
   </section>
@@ -994,7 +1023,7 @@ main{position:relative;z-index:3}
       <div class="faq-side">
         <span class="eyebrow rv" style="--c:var(--gold)"><i></i>FAQ</span>
         <h2 class="h2 rv">Good <span class="serif">questions.</span></h2>
-        <p class="lede rv">The things founders and teams usually ask before we work together.</p>
+        <p class="lede rv">The things founders, teams and event planners usually ask before we work together.</p>
         <a class="btn btn-ghost rv" href="https://wa.me/919700001534" target="_blank" rel="noopener" style="margin-top:28px">Ask me directly<span class="ic"><svg fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><path d="M7 17L17 7M9 7h8v8"/></svg></span></a>
       </div>
       <div class="faq" id="faqList">
@@ -1005,6 +1034,7 @@ main{position:relative;z-index:3}
         <div class="qa rv"><button class="q" aria-expanded="false">Can AI really replace expensive SaaS tools?<i></i></button><div class="a"><div><p>Often, yes. I built HotBot Studios' own command centre with AI-native development: a 100+ page platform with a CRM, invoicing engine, email tracking, project management, automated follow-ups and 10 MCP integrations. It cost under Rs. 10,000 against agency quotes of Rs. 8 to 15 lakh, and replaced Rs. 15,000+ a month in subscriptions.</p></div></div></div>
         <div class="qa rv"><button class="q" aria-expanded="false">Do you run AI workshops or team training?<i></i></button><div class="a"><div><p>Yes. I've facilitated Generative AI orientation workshops at the Sabudh Foundation, training 50+ community members and business operators on practical AI tools, process automation and LLM workflows. Sessions are hands-on and built around your team's real work.</p></div></div></div>
         <div class="qa rv"><button class="q" aria-expanded="false">Do you work with teams outside India?<i></i></button><div class="a"><div><p>Yes. HotBot Studios serves clients in India and the US, and I've worked on a fractional basis with US-based SaaS companies on marketing, operations and technical hiring. Most engagements run remotely with clear weekly checkpoints.</p></div></div></div>
+        <div class="qa rv"><button class="q" aria-expanded="false">Do you host corporate badminton events?<i></i></button><div class="a"><div><p>Yes, and not only for tech companies. Through Racquets Club Community we host inter-company tournaments, team offsites, sports days and recurring corporate leagues at our own arena in Paschim Vihar, New Delhi, open round the clock. We handle courts, fixtures, formats and rankings so your team just shows up and plays.</p></div></div></div>
         <div class="qa rv"><button class="q" aria-expanded="false">What's your background?<i></i></button><div class="a"><div><p>A B.Tech in Computer Science and an MBA in Marketing, Google certifications across Ads, Analytics (GA4), YouTube, Digital Unlocked, Business Profile and Project Management, and I'm currently pursuing AI in Business at IIM Lucknow. Before founding HotBot Studios in 2018 I worked in performance marketing, and started at Times Internet managing social for 23 brands.</p></div></div></div>
         <div class="qa rv"><button class="q" aria-expanded="false">How do we get started?<i></i></button><div class="a"><div><p>Send me a WhatsApp or save my contact and drop a line about the workflow or goal. We'll do a short discovery call, I'll map the opportunities with their expected value, and you'll get a clear plan before anything is built.</p></div></div></div>
       </div>
@@ -1052,7 +1082,7 @@ main{position:relative;z-index:3}
 </footer>
 
 <!-- Save Contact Modal -->
-<div class="modal-overlay" id="svcModal"><div class="modal-sheet"><div class="modal-handle"></div><div class="modal-title">What can I help you with?</div><div class="modal-sub">Select a service so I'm saved in your contacts with context, so you'll always remember why we connected.</div><div class="svc-options" id="svcOptions"><div class="svc-opt" data-svc="AI"><span class="svc-radio"></span><span class="svc-opt-label">AI & Automations</span></div><div class="svc-opt" data-svc="Digital Marketing"><span class="svc-radio"></span><span class="svc-opt-label">Digital Marketing</span></div><div class="svc-opt" data-svc="Software Dev"><span class="svc-radio"></span><span class="svc-opt-label">Software Development</span></div><div class="svc-opt" data-svc="Web Dev"><span class="svc-radio"></span><span class="svc-opt-label">Web Development</span></div><div class="svc-opt" data-svc="UI/UX"><span class="svc-radio"></span><span class="svc-opt-label">UI/UX Design</span></div><div class="svc-opt" data-svc="SaaS"><span class="svc-radio"></span><span class="svc-opt-label">SaaS</span></div><div class="svc-opt" data-svc="App Dev"><span class="svc-radio"></span><span class="svc-opt-label">App Development</span></div><div class="svc-opt" data-svc="Branding"><span class="svc-radio"></span><span class="svc-opt-label">Branding</span></div></div><div class="modal-actions"><button class="modal-cancel" id="modalCancel">Cancel</button><button class="modal-confirm" id="modalConfirm">Save Contact</button></div></div></div>
+<div class="modal-overlay" id="svcModal"><div class="modal-sheet"><div class="modal-handle"></div><div class="modal-title">What can I help you with?</div><div class="modal-sub">Select a service so I'm saved in your contacts with context, so you'll always remember why we connected.</div><div class="svc-options" id="svcOptions"><div class="svc-opt" data-svc="AI"><span class="svc-radio"></span><span class="svc-opt-label">AI & Automations</span></div><div class="svc-opt" data-svc="Digital Marketing"><span class="svc-radio"></span><span class="svc-opt-label">Digital Marketing</span></div><div class="svc-opt" data-svc="Software Dev"><span class="svc-radio"></span><span class="svc-opt-label">Software Development</span></div><div class="svc-opt" data-svc="Web Dev"><span class="svc-radio"></span><span class="svc-opt-label">Web Development</span></div><div class="svc-opt" data-svc="UI/UX"><span class="svc-radio"></span><span class="svc-opt-label">UI/UX Design</span></div><div class="svc-opt" data-svc="SaaS"><span class="svc-radio"></span><span class="svc-opt-label">SaaS</span></div><div class="svc-opt" data-svc="App Dev"><span class="svc-radio"></span><span class="svc-opt-label">App Development</span></div><div class="svc-opt" data-svc="Branding"><span class="svc-radio"></span><span class="svc-opt-label">Branding</span></div><div class="svc-opt" data-svc="Badminton Events"><span class="svc-radio"></span><span class="svc-opt-label">Corporate Badminton Events</span></div></div><div class="modal-actions"><button class="modal-cancel" id="modalCancel">Cancel</button><button class="modal-confirm" id="modalConfirm">Save Contact</button></div></div></div>
 
 <!-- Wallet Modal -->
 <div class="wallet-modal-overlay" id="walletModal">
