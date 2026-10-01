@@ -1,11 +1,11 @@
 {
-  "name": "Harshpreet Singh Bhasin — HotBot Studios",
+  "name": "Harshpreet Singh Bhasin: HotBot Studios",
   "short_name": "Harshpreet",
-  "description": "Digital business card for Harshpreet Singh Bhasin — Managing Partner & CEO at HotBot Studios LLP",
+  "description": "Digital business card for Harshpreet Singh Bhasin: Managing Partner & CEO at HotBot Studios LLP",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#080c14",
-  "theme_color": "#080c14",
+  "background_color": "#04060b",
+  "theme_color": "#04060b",
   "orientation": "portrait",
   "icons": [
     {

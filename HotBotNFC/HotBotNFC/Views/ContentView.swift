@@ -30,7 +30,7 @@ struct ContentView: View {
                 Spacer().frame(height: 8)
 
                 // Title
-                Text("Managing Partner · CEO")
+                Text("Managing Partner · CEO · Founder, RCC")
                     .font(.system(size: 13, weight: .regular))
                     .foregroundColor(AppTheme.textSecondary)
 

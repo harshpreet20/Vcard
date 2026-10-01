@@ -52,7 +52,7 @@ struct ContactCard {
         firstName: "Harshpreet",
         lastName: "Bhasin",
         middleName: "Singh",
-        title: "Managing Partner | CEO",
+        title: "Managing Partner | CEO · Founder, Racquets Club Community",
         organization: "HotBot Studios LLP",
         phonePrimary: "+919700001534",
         phoneBackup: "+919479470052",
