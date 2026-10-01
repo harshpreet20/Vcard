@@ -1,5 +1,5 @@
-var CACHE='hotbot-vcard-v2';
-var ASSETS=['/','/index.html','/manifest.json','/icons/icon-192.png','/icons/icon-512.png','/assets/portrait.webp','/assets/avatar.jpg'];
+var CACHE='hotbot-vcard-v3';
+var ASSETS=['/','/index.html','/manifest.json','/icons/icon-192.png','/icons/icon-512.png','/assets/portrait.webp','/assets/avatar.jpg','/assets/work/nivedita-hero.webp'];
 
 self.addEventListener('install',function(e){
   e.waitUntil(caches.open(CACHE).then(function(c){return c.addAll(ASSETS)}));
