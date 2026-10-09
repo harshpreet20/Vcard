@@ -294,14 +294,15 @@ main{position:relative;z-index:3}
 .dots i{width:6px;height:6px;border-radius:3px;background:rgba(255,255,255,.45);transition:width .6s var(--ease),background .6s var(--ease)}
 .dots i.on{width:18px;background:#fff}
 .nk-facts{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
-.nk-facts span{padding:10px 12px;border-radius:14px;border:1px solid rgba(244,169,187,.18);background:rgba(244,169,187,.05);font-size:11.5px;color:var(--muted)}
-.nk-facts b{display:block;font-size:18px;font-weight:600;letter-spacing:-.03em;color:var(--rose)}
+.nk-facts span{padding:10px 12px;border-radius:14px;border:1px solid var(--fb,rgba(244,169,187,.18));background:var(--fbg,rgba(244,169,187,.05));font-size:11.5px;color:var(--muted)}
+.nk-facts b{display:block;font-size:18px;font-weight:600;letter-spacing:-.03em;color:var(--fc,var(--rose))}
+.oe{background:radial-gradient(80% 70% at 30% 0%,rgba(111,214,191,.2),transparent 65%),radial-gradient(60% 60% at 100% 100%,rgba(200,116,58,.22),transparent 60%),linear-gradient(160deg,#0f2420,#0a1412)}
 /* Nivedita full-width split */
 .work-grid{grid-template-columns:1fr}
 .work-grid .work .core{display:grid;grid-template-columns:.8fr 1.2fr;gap:20px;align-items:stretch}
 .work-grid .work .work-head{flex-direction:column;justify-content:flex-start;padding:18px 12px}
 .work-grid .work .work-foot{grid-column:1;align-self:end;padding:0 12px 12px}
-.work-grid .work .stage{grid-column:2;grid-row:1/3;aspect-ratio:auto;min-height:400px}
+.work-grid .work .stage{grid-column:2;grid-row:1/3;aspect-ratio:auto;min-height:360px}
 
 /* Autoposter showcase (recreated from product screens) */
 .apx .core{padding:clamp(22px,4vw,56px);background:radial-gradient(70% 50% at 50% 0%,rgba(92,107,214,.28),transparent 70%),linear-gradient(180deg,#0d1020,#080a13)}
@@ -837,13 +838,13 @@ main{position:relative;z-index:3}
     <div class="wrap">
       <span class="eyebrow rv" style="--c:var(--rose)"><i></i>Recent work</span>
       <h2 class="h2 rv">Built for people, <span class="serif">not just pixels.</span></h2>
-      <p class="lede rv">Every build starts with the community it serves: patients who need to feel at ease, professionals who need to show up consistently.</p>
+      <p class="lede rv">Every build starts with the community it serves: patients who need to feel at ease, shoppers who want to read the label, professionals who need to show up consistently.</p>
       <div class="work-grid">
         <article class="shell work tilt rv spot"><div class="core">
           <div class="work-head"><div><h3>Dr. Nivedita Kaul</h3><p>Website for a Gynaecologist &amp; Advanced Minimally Invasive Surgeon, Director of Obstetrics &amp; Gynaecology at Fortis Memorial Research Institute, Gurugram. Built so patients see 25+ years of care, credentials and real reviews before the first visit.</p>
             <div class="nk-facts"><span><b>4.9★</b>539 Google reviews</span><span><b>10,000+</b>deliveries &amp; surgeries</span><span><b>99%</b>thumbs up on Practo</span></div></div><span class="pill">Healthcare · Web</span></div>
           <div class="stage nk">
-            <div class="browser" id="nkShots">
+            <div class="browser shotset" id="nkShots">
               <div class="bar"><i></i><i></i><i></i><span>drniveditakaul.com</span></div>
               <div class="shots">
                 <img class="on" src="assets/work/nivedita-hero.webp" alt="Dr. Nivedita Kaul website home page" loading="lazy">
@@ -854,6 +855,24 @@ main{position:relative;z-index:3}
             </div>
           </div>
           <div class="work-foot"><div class="chip-row"><span class="chip">Brand</span><span class="chip">Website</span><span class="chip">Patient journey</span></div><a class="link-mini" href="https://drniveditakaul.com" target="_blank" rel="noopener">Visit live<span class="ic"><svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M7 17L17 7M9 7h8v8"/></svg></span></a></div>
+        </div></article>
+        <article class="shell work tilt rv spot"><div class="core">
+          <div class="work-head"><div><h3>One Enuff</h3><p>E-commerce website for a clean-label wellness brand: ten supplement formulas, shop-by-concern discovery, label-level transparency and a WhatsApp enquiry flow that routes retail, distributor and bulk buyers straight to the team.</p>
+            <div class="nk-facts" style="--fc:#6fd6bf;--fb:rgba(111,214,191,.18);--fbg:rgba(111,214,191,.05)"><span><b>10</b>formulas, one clear purpose each</span><span><b>6</b>concerns to shop by</span><span><b>1 tap</b>WhatsApp enquiry</span></div></div><span class="pill">Wellness · E-commerce</span></div>
+          <div class="stage oe">
+            <div class="browser shotset">
+              <div class="bar"><i></i><i></i><i></i><span>oneenuff.com</span></div>
+              <div class="shots">
+                <img class="on" src="assets/work/oneenuff-concerns.webp" alt="One Enuff shop by concern section" loading="lazy">
+                <img src="assets/work/oneenuff-collection.webp" alt="One Enuff formula collection with product cards" loading="lazy">
+                <img src="assets/work/oneenuff-label.webp" alt="Read the label section with formula potencies" loading="lazy">
+                <img src="assets/work/oneenuff-certified.webp" alt="Certified and tested credentials section" loading="lazy">
+                <img src="assets/work/oneenuff-faq.webp" alt="One Enuff FAQ section" loading="lazy">
+              </div>
+              <div class="dots"><i class="on"></i><i></i><i></i><i></i><i></i></div>
+            </div>
+          </div>
+          <div class="work-foot"><div class="chip-row"><span class="chip">Brand website</span><span class="chip">Product catalogue</span><span class="chip">Shop by concern</span><span class="chip">WhatsApp funnel</span></div><a class="link-mini" href="https://www.oneenuff.com" target="_blank" rel="noopener">Visit live<span class="ic"><svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M7 17L17 7M9 7h8v8"/></svg></span></a></div>
         </div></article>
 
       </div>
@@ -1181,10 +1200,9 @@ main{position:relative;z-index:3}
   }
 
 
-  /* Nivedita screenshot carousel */
-  var nk=document.getElementById('nkShots');
-  if(nk){var im=nk.querySelectorAll('.shots img'),dt=nk.querySelectorAll('.dots i'),k=0;
-    setInterval(function(){im[k].classList.remove('on');dt[k].classList.remove('on');k=(k+1)%im.length;im[k].classList.add('on');dt[k].classList.add('on')},3800)}
+  /* Client screenshot carousels (one timer, offset per card) */
+  document.querySelectorAll('.shotset').forEach(function(set,n){var im=set.querySelectorAll('.shots img'),dt=set.querySelectorAll('.dots i'),k=0;
+    setTimeout(function(){setInterval(function(){if(document.hidden)return;im[k].classList.remove('on');dt[k].classList.remove('on');k=(k+1)%im.length;im[k].classList.add('on');dt[k].classList.add('on')},3800)},n*1900)});
 
   /* Continuity thread */
   (function(){
