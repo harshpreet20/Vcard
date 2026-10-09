@@ -1552,7 +1552,17 @@ document.addEventListener('DOMContentLoaded',function(){
 function _toast(m){var t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(function(){t.classList.remove('show')},2400)}
 }();
 </script>
-<script>if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js').catch(function(){})}</script>
+<script>
+if('serviceWorker' in navigator){
+  /* had an older version? then reload once when the new one takes over, so the latest content shows */
+  var hadSW=!!navigator.serviceWorker.controller,reloaded=false;
+  navigator.serviceWorker.addEventListener('controllerchange',function(){if(hadSW&&!reloaded){reloaded=true;location.reload()}});
+  navigator.serviceWorker.register('sw.js',{updateViaCache:'none'}).then(function(reg){
+    /* home-screen apps resume without a fresh load, so check for updates whenever the app comes back */
+    document.addEventListener('visibilitychange',function(){if(!document.hidden)reg.update()});
+  }).catch(function(){});
+}
+</script>
 <noscript><style>.rv{opacity:1;transform:none;filter:none}.ar-scanner{display:none}</style></noscript>
 </body>
 </html>
