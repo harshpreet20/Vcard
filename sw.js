@@ -1,4 +1,4 @@
-var CACHE='hotbot-vcard-v5';
+var CACHE='hotbot-vcard-v6';
 var ASSETS=['/','/index.html','/manifest.json','/icons/icon-192.png','/icons/icon-512.png','/assets/portrait.webp','/assets/avatar.jpg','/assets/work/nivedita-hero.webp'];
 
 self.addEventListener('install',function(e){
