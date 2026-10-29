@@ -1,4 +1,4 @@
-var CACHE='hotbot-vcard-v8';
+var CACHE='hotbot-vcard-v9';
 var ASSETS=['/','/manifest.json','/icons/icon-192.png','/icons/icon-512.png','/assets/portrait.webp','/assets/avatar.jpg'];
 
 self.addEventListener('install',function(e){
